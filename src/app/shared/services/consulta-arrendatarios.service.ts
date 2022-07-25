@@ -13,7 +13,7 @@ export class ConsultaArrendatariosService {
     this.urlBase = "http://localhost:8080/api/arrendatarios";
   }
 
-  obtenerArrendatariosHistorial(nombrePropiedad: string): Observable<PersonaModel>{
-    return this.http.get<PersonaModel>(`${this.urlBase}/${nombrePropiedad}`);
+  obtenerArrendatariosHistorial(nombrePropiedad: string): Observable<PersonaModel[]>{
+    return this.http.get<PersonaModel[]>(`${this.urlBase}/${nombrePropiedad}`);
   }
 }

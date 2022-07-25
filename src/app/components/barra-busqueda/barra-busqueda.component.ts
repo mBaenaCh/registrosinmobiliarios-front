@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonaModel } from 'src/app/shared/models/persona';
+import { ConsultaArrendatariosService } from 'src/app/shared/services/consulta-arrendatarios.service';
 
 @Component({
   selector: 'app-barra-busqueda',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarraBusquedaComponent implements OnInit {
 
-  constructor() { }
+  textoIngresado: string;
+  resultadosEncontrados: PersonaModel[];
 
-  ngOnInit(): void {
+  constructor(private consultaArrendatariosService: ConsultaArrendatariosService) { 
+    this,this.resultadosEncontrados = [];
   }
 
+  ngOnInit(): void {
+
+  }
+
+  buscarArrendatarios(textoIngresado: string): void{
+    this.consultaArrendatariosService.obtenerArrendatariosHistorial(textoIngresado.trim()).subscribe(
+      (data) => {
+        this.resultadosEncontrados = data;
+      }
+    )
+  }
 }
