@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PersonaModel } from 'src/app/shared/models/persona';
 import { ConsultaArrendatariosService } from 'src/app/shared/services/consulta-arrendatarios.service';
 import { ConsultaListaPropiedadesService } from 'src/app/shared/services/consulta-lista-propiedades.service';
@@ -15,12 +15,13 @@ export class BarraBusquedaComponent implements OnInit {
   textoIngresado: string;
   resultadosEncontrados: PersonaModel[];
   nombrePropiedades: string[];
-  public model: any;
+  @Output() resultados: EventEmitter<PersonaModel[]>;
 
   constructor(
     private consultaArrendatariosService: ConsultaArrendatariosService,
     private consultaListaPropiedades: ConsultaListaPropiedadesService) { 
     this.resultadosEncontrados = [];
+    this.resultados = new EventEmitter();
   }
 
   ngOnInit(): void {
@@ -36,9 +37,10 @@ export class BarraBusquedaComponent implements OnInit {
   }
 
   buscarArrendatarios(textoIngresado: string): void{
-    this.consultaArrendatariosService.obtenerArrendatariosHistorial(textoIngresado.trim()).subscribe(
+    this.consultaArrendatariosService.obtenerArrendatariosHistorial(textoIngresado).subscribe(
       (data) => {
         this.resultadosEncontrados = data;
+        this.resultados.emit(this.resultadosEncontrados);
       }
     )
   }
@@ -50,4 +52,9 @@ export class BarraBusquedaComponent implements OnInit {
       map(term => term.length < 2 ? []
         : this.nombrePropiedades.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
+  
+    onClick(): void {
+      this.buscarArrendatarios(this.textoIngresado);
+      
+    }
 }
