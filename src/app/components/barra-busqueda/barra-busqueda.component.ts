@@ -55,6 +55,6 @@ export class BarraBusquedaComponent implements OnInit {
   
     onClick(): void {
       this.buscarArrendatarios(this.textoIngresado);
-      
+      this.textoIngresado="";
     }
 }
