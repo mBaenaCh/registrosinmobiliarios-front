@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BarraBusquedaComponent } from './components/barra-busqueda/barra-busqueda.component';
 import { ListaArrendatariosComponent } from './components/lista-arrendatarios/lista-arrendatarios.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

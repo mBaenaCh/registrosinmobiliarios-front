@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PersonaModel } from 'src/app/shared/models/persona';
 import { ConsultaArrendatariosService } from 'src/app/shared/services/consulta-arrendatarios.service';
 import { ConsultaListaPropiedadesService } from 'src/app/shared/services/consulta-lista-propiedades.service';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {Observable, OperatorFunction} from 'rxjs';
 
 @Component({
   selector: 'app-barra-busqueda',
@@ -13,6 +15,7 @@ export class BarraBusquedaComponent implements OnInit {
   textoIngresado: string;
   resultadosEncontrados: PersonaModel[];
   nombrePropiedades: string[];
+  public model: any;
 
   constructor(
     private consultaArrendatariosService: ConsultaArrendatariosService,
@@ -39,4 +42,12 @@ export class BarraBusquedaComponent implements OnInit {
       }
     )
   }
+
+  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.nombrePropiedades.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    );
 }
