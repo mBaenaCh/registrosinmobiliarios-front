@@ -1,1 +1,27 @@
-<p>lista-arrendatarios works!</p>
+<!--<div>
+    <div *ngFor="let resultado of resultados">
+        <h4></h4>
+        <p>{{resultado.nombre}}</p>
+        <p>{{resultado.apellidos}}</p>
+        <p>{{resultado.correo}}</p>
+    </div>
+</div>-->
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellidos</th>
+      <th scope="col">Correo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let resultado of resultados">
+      <td>{{resultado.id}}</td>
+      <td>{{resultado.nombre}}</td>
+      <td>{{resultado.apellidos}}</td>
+      <td>{{resultado.correo}}</td>
+    </tr>
+    </tbody>
+  </table>
+

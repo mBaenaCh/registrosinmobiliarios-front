@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { PersonaModel } from 'src/app/shared/models/persona';
 
 @Component({
   selector: 'app-lista-arrendatarios',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaArrendatariosComponent implements OnInit {
 
-  constructor() { }
+  @Input() resultados: PersonaModel[];
+
+  constructor() { 
+    this.resultados = [];
+  }
 
   ngOnInit(): void {
   }
